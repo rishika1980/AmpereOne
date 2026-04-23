@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  
+  --color-page: #09090B;          /* Obsidian Black */
+  --color-card: #121214;          /* Midnight Grey */
+  --color-sidebar: #0F0F11;       /* Deep Slate */
+  --color-sidebar-hover: #171719;
+  --color-accent: #0071E3;        /* Ampere Blue */
+  --color-border: rgba(255,255,255,0.08); 
+  --color-text-primary: #FFFFFF;  
+  --color-text-secondary: #A1A1AA; /* Zinc-400 */
+  --color-text-muted: #71717A;     /* Zinc-500 */
+  --color-danger: #FF453A; 
+  --color-success: #32D74B; 
+  --color-warning: #FF9F0A; 
+}
+
+@layer base {
+  body {
+    @apply bg-page text-text-primary antialiased;
+    font-size: 16px; /* Slightly larger for Apple look */
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+    letter-spacing: -0.011em;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseSoft {
+  0% { transform: scale(0.92); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(0.92); opacity: 0.8; }
+}
+
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+  
+  .premium-card {
+    @apply bg-card border border-border/50 rounded-[22px] shadow-[0_2px_14px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-500 ease-out;
+  }
+
+  .glass-header {
+    @apply bg-white/80 backdrop-blur-xl border-b border-border/30 sticky top-0 z-40;
+  }
+  
+  .page-enter { 
+    animation: fadeUp 400ms cubic-bezier(0.25, 1, 0.5, 1) both; 
+  }
+  
+  .status-pulse, .live-dot {
+    animation: pulseSoft 2.0s infinite ease-in-out;
+  }
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #D1D5DB; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #9CA3AF; }
+
+tr.hoverable:hover { 
+  @apply bg-accent/5 cursor-pointer; 
+}
