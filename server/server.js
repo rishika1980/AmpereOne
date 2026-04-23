@@ -18,8 +18,19 @@ require('./models/User');
 
 // const connectDB = require('./config/db');
 
+const connectDB = require('./config/db');
+
 const app = express();
-connectDB();
+connectDB().then(async () => {
+  // Automatic Seeding Check
+  const Society = require('./models/Society');
+  const count = await Society.countDocuments();
+  if (count === 0) {
+    console.log('⚠️ Database is empty. Running automatic seed...');
+    // We run this in the background to not block startup
+    require('./seeds/seed');
+  }
+});
 
 app.use(helmet());
 app.use(cors({ 
