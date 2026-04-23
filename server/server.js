@@ -22,7 +22,15 @@ const app = express();
 connectDB();
 
 app.use(helmet());
-app.use(cors({ origin: process.env.CLIENT_URL || '*' }));
+app.use(cors({ 
+  origin: [
+    process.env.CLIENT_URL, 
+    'https://ampere-one.vercel.app', 
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ].filter(Boolean),
+  credentials: true 
+}));
 app.use(express.json());
 app.use(morgan(process.env.NODE_ENV === 'development' ? 'dev' : 'combined'));
 
